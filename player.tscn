@@ -140,7 +140,7 @@ properties/2/sync = true
 collision_layer = 2
 script = ExtResource("1_2v3wm")
 
-[node name="CheckButton" type="CheckButton" parent="."]
+[node name="auto" type="CheckButton" parent="."]
 offset_left = 851.0
 offset_top = -6.0
 offset_right = 967.0
@@ -148,7 +148,7 @@ offset_bottom = 45.0
 text = "Full auto"
 script = ExtResource("2_h5n34")
 
-[node name="CheckButton2" type="CheckButton" parent="."]
+[node name="bhop" type="CheckButton" parent="."]
 offset_left = 968.0
 offset_top = 2.0
 offset_right = 1152.0
@@ -216,7 +216,7 @@ libraries = {
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_hn37q")
 
-[connection signal="toggled" from="CheckButton" to="CheckButton" method="_on_toggled"]
-[connection signal="toggled" from="CheckButton2" to="CheckButton2" method="_on_toggled"]
+[connection signal="toggled" from="auto" to="auto" method="_on_toggled"]
+[connection signal="toggled" from="bhop" to="bhop" method="_on_toggled"]
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
