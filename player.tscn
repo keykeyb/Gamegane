@@ -1,15 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://xcjrjq5cbn7y"]
+[gd_scene load_steps=19 format=3 uid="uid://xcjrjq5cbn7y"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_2v3wm"]
 [ext_resource type="PackedScene" uid="uid://cf1dcxwv6bvl3" path="res://models/Pistol.glb" id="2_4esil"]
-[ext_resource type="Script" path="res://CheckButton.gd" id="2_h5n34"]
+[ext_resource type="PackedScene" uid="uid://co581k85dp0wk" path="res://models/Low Poly Weapons Pack-glb/Assault Rifle-MdbcTe6hH3.glb" id="2_7pmfg"]
+[ext_resource type="Script" path="res://addons/freecam_3D/freecam.gd" id="2_mpto1"]
 [ext_resource type="Texture2D" uid="uid://vwob30tkwej4" path="res://addons/kenney_particle_pack/star_06.png" id="3_27dhu"]
-[ext_resource type="Script" path="res://CheckButton2.gd" id="3_yyplx"]
-[ext_resource type="Script" path="res://Button.gd" id="4_7l5j5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_67y6s"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_xk8km"]
 
 [sub_resource type="Gradient" id="Gradient_cfnn0"]
 offsets = PackedFloat32Array(0, 0.141221, 1)
@@ -40,6 +37,8 @@ material = SubResource("StandardMaterial3D_4smqo")
 size = Vector2(0.5, 0.5)
 orientation = 2
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_xk8km"]
+
 [sub_resource type="Animation" id="Animation_jhgv2"]
 length = 0.001
 
@@ -50,7 +49,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/Pistol:position")
+tracks/0/path = NodePath("Camera3D/Assault_Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -62,7 +61,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D/Pistol:rotation")
+tracks/1/path = NodePath("Camera3D/Assault_Rifle:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -79,7 +78,7 @@ step = 0.25
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/Pistol:position")
+tracks/0/path = NodePath("Camera3D/Assault_Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -95,7 +94,7 @@ length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Camera3D/Pistol:position")
+tracks/0/path = NodePath("Camera3D/Assault_Rifle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -107,7 +106,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Camera3D/Pistol:rotation")
+tracks/1/path = NodePath("Camera3D/Assault_Rifle:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -140,37 +139,9 @@ properties/2/sync = true
 collision_layer = 2
 script = ExtResource("1_2v3wm")
 
-[node name="auto" type="CheckButton" parent="."]
-offset_left = 851.0
-offset_top = -6.0
-offset_right = 967.0
-offset_bottom = 45.0
-text = "Full auto"
-script = ExtResource("2_h5n34")
-
-[node name="bhop" type="CheckButton" parent="."]
-offset_left = 968.0
-offset_top = 2.0
-offset_right = 1152.0
-offset_bottom = 33.0
-text = "Crazy bhop mode"
-script = ExtResource("3_yyplx")
-
-[node name="Button" type="Button" parent="."]
-offset_left = 1055.0
-offset_top = 37.0
-offset_right = 1126.0
-offset_bottom = 68.0
-text = "Confirm"
-script = ExtResource("4_7l5j5")
-
-[node name="NameEntry" type="LineEdit" parent="."]
-offset_left = 847.0
-offset_top = 36.0
-offset_right = 1035.0
-offset_bottom = 67.0
-placeholder_text = "Enter Name"
-alignment = 1
+[node name="PlayerCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_67y6s")
 
 [node name="Area3D" type="Area3D" parent="."]
 
@@ -178,22 +149,29 @@ alignment = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_67y6s")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_xk8km")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_67y6s")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.51306, 0)
+script = ExtResource("2_mpto1")
 
 [node name="Pistol" parent="Camera3D" instance=ExtResource("2_4esil")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.25, -0.5)
+visible = false
 
 [node name="MuzzleFlash" type="GPUParticles3D" parent="Camera3D/Pistol"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0588368, -0.313209)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.082921, 0.175637, -2.56014)
+emitting = false
+amount = 1
+lifetime = 0.25
+one_shot = true
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_uu53b")
+draw_pass_1 = SubResource("PlaneMesh_b2g4i")
+
+[node name="Assault_Rifle" parent="Camera3D" instance=ExtResource("2_7pmfg")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.417079, -0.266684, -0.832704)
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="Camera3D/Assault_Rifle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0715699, -2.35054)
 emitting = false
 amount = 1
 lifetime = 0.25
@@ -206,6 +184,11 @@ draw_pass_1 = SubResource("PlaneMesh_b2g4i")
 target_position = Vector3(0, 0, -50)
 collision_mask = 2
 
+[node name="PlayerMesh" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.51306, 0)
+mesh = SubResource("CapsuleMesh_xk8km")
+skeleton = NodePath("../..")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
 playback_default_blend_time = 0.05
@@ -216,7 +199,8 @@ libraries = {
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_hn37q")
 
-[connection signal="toggled" from="auto" to="auto" method="_on_toggled"]
-[connection signal="toggled" from="bhop" to="bhop" method="_on_toggled"]
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="Label" type="Label" parent="."]
+offset_right = 196.0
+offset_bottom = 93.0
+
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

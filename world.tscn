@@ -1,13 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://c8oqxmm2w2wvv"]
+[gd_scene load_steps=9 format=3 uid="uid://c8oqxmm2w2wvv"]
 
 [ext_resource type="Script" path="res://world.gd" id="1_6tkge"]
-[ext_resource type="PackedScene" uid="uid://c1j7an8woikyd" path="res://environment.tscn" id="1_iktak"]
+[ext_resource type="PackedScene" uid="uid://c1pvsvoqxlgdb" path="res://scenes/asteroid.tscn" id="2_wx4t6"]
 [ext_resource type="Texture2D" uid="uid://8ka2ui7sq36p" path="res://addons/kenney_particle_pack/circle_05.png" id="3_ehmxv"]
-[ext_resource type="PackedScene" uid="uid://3ni8r4qyc0le" path="res://jump_pad.tscn" id="4_eihhj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u5pdl"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_w2qqb"]
 sky_material = SubResource("ProceduralSkyMaterial_u5pdl")
@@ -28,13 +29,16 @@ bg_color = Color(0.00392157, 1, 0, 1)
 script = ExtResource("1_6tkge")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.468347, -0.883542, -0.00186121, -0.806935, 0.426879, 0.408203, -0.35987, 0.192683, -0.912889, 0, 0, -11.3889)
 shadow_enabled = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.991294, -0.131668, 0, 0.131668, 0.991294, 0, -2.99271, 25.0926)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_6knbf")
 
-[node name="Environment" parent="." instance=ExtResource("1_iktak")]
+[node name="Asteroid" parent="." instance=ExtResource("2_wx4t6")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -89,6 +93,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="auto" type="CheckButton" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 851.0
+offset_top = -6.0
+offset_right = 967.0
+offset_bottom = 45.0
+text = "Full auto"
+
 [node name="HealthBar" type="ProgressBar" parent="CanvasLayer/HUD"]
 layout_mode = 1
 anchors_preset = 8
@@ -130,25 +142,14 @@ layout_mode = 0
 offset_left = 15.0
 offset_right = 156.0
 offset_bottom = 144.0
+scroll_active = false
+autowrap_mode = 0
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://player.tscn")
 spawn_path = NodePath("..")
 
-[node name="Pads" type="Node" parent="."]
-
-[node name="jump_pad" parent="Pads" instance=ExtResource("4_eihhj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000383973, 2, -24.8329)
-
-[node name="jump_pad2" parent="Pads" instance=ExtResource("4_eihhj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.4274, 2, 0.193712)
-
-[node name="jump_pad3" parent="Pads" instance=ExtResource("4_eihhj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.8676, 2, -0.604017)
-
-[node name="jump_pad4" parent="Pads" instance=ExtResource("4_eihhj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.559359, 2, 24.4226)
-
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/MainMenu/MarginContainer/VBoxContainer/JoinButton" to="." method="_on_join_button_pressed"]
+[connection signal="toggled" from="CanvasLayer/HUD/auto" to="." method="_on_auto_toggled"]
 [connection signal="spawned" from="MultiplayerSpawner" to="." method="_on_multiplayer_spawner_spawned"]

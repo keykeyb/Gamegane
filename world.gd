@@ -5,10 +5,13 @@ extends Node
 @onready var hud = $CanvasLayer/HUD
 @onready var health_bar = $CanvasLayer/HUD/HealthBar
 
+var auto_touches = 0
+var auto = false
 var players = []
 const Player = preload("res://player.tscn")
 const PORT = 9999
 var enet_peer = ENetMultiplayerPeer.new()
+
 
 func _unhandled_input(event):
 	if Input.is_action_just_pressed("quit"):
@@ -25,8 +28,6 @@ func _on_host_button_pressed():
 	multiplayer.multiplayer_peer = enet_peer
 	multiplayer.peer_connected.connect(add_player)
 	multiplayer.peer_disconnected.connect(remove_player)
-	
-	
 	add_player(multiplayer.get_unique_id())
 	
 	upnp_setup()
@@ -45,7 +46,7 @@ func add_player(peer_id):
 	add_child(player)
 	if player.is_multiplayer_authority():
 		player.health_changed.connect(update_health_bar)
-
+		
 func remove_player(peer_id):
 	var player = get_node_or_null(str(peer_id))
 	if player:
@@ -54,14 +55,10 @@ func remove_player(peer_id):
 func update_health_bar(health_value):
 	health_bar.value = health_value
 
-func update_name_list(chosen_name):
-	print(chosen_name+' last')
-	$CanvasLayer/HUD/PlayerList.append_text(str(chosen_name)+'\n')
 
 func _on_multiplayer_spawner_spawned(node):
 	if node.is_multiplayer_authority():
 		node.health_changed.connect(update_health_bar)
-		node.name_changed.connect(update_name_list)
 
 func upnp_setup():
 	var upnp = UPNP.new()
@@ -79,3 +76,12 @@ func upnp_setup():
 	
 	print("Success! Join Address: %s" % upnp.query_external_address())
 	
+
+func _on_auto_toggled(button_pressed):
+	$CanvasLayer/HUD/auto.focus_mode = 0
+	auto_touches += 1
+	if auto_touches%2 == 0:
+		auto = false
+	else:
+		auto = true
+
